@@ -1,18 +1,27 @@
 import AppName from "./component/AppName";
 import InputRow from "./component/InputRow";
-import Item1 from "./component/RowItem1";
-import Item2 from "./component/RowItem2";
+import TodoItems from "./component/TodoItems";
 import "./App.css";
 function App() {
+  const todoItems = [
+    {
+      name: "Buy Mikl",
+      date: "4/10/2023",
+    },
+    {
+      name:'go to College',
+      date:'4/10/2023'
+    },
+    {
+      name:'go to school',
+      date:'4/10/2023'
+    },
+  ];
   return (
     <center className="todo-container">
       <AppName></AppName>
-      
-      <div className="item-container">
       <InputRow></InputRow>
-        <Item1></Item1>
-        <Item2></Item2>
-      </div>
+      <TodoItems todoItems={todoItems}></TodoItems>
     </center>
   );
 }
