@@ -1,6 +1,10 @@
 import styles from "../Display.module.css";
 
-const Display = () => {
-  return <input type="text" className={styles.display} />;
+// eslint-disable-next-line react/prop-types
+const Display = ({ calVal }) => {
+  return (
+    <input type="text" className={styles.display} value={calVal} readOnly />
+  );
 };
+
 export default Display;
