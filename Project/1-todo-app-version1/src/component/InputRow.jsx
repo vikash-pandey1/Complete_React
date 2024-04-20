@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { TodoItemsContext } from "../store/todo-items-store";
 
 // eslint-disable-next-line react/prop-types
-function InputRow({ onNewItem }) {
+function InputRow() {
+  const {addNewItem} = useContext(
+    TodoItemsContext);
   const [todoName, setTodoName] = useState();
   const [dueDate, setDueDate] = useState();
 
@@ -12,7 +16,7 @@ function InputRow({ onNewItem }) {
     setDueDate(Event.target.value);
   };
   const handleAddButtonClicked = () => {
-    onNewItem(todoName, dueDate);
+    addNewItem(todoName, dueDate);
     setDueDate("");
     setTodoName("");
   };
