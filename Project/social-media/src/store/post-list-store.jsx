@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+
  export const PostList = createContext({
   postList: [],
   addPost: () => {},
@@ -6,14 +7,40 @@ import { createContext, useReducer } from "react";
 });
 
 const postListReducer = (currPostList, action) => {
-  return currPostList;
+  let newPostList = currPostList;
+  if(action.type === 'DELETE_POST'){
+    newPostList = currPostList.filter((post)=> post.id !== action.payload.postId);
+  }else if(action.type==='ADD_POST'){
+    newPostList = [action.payload,...currPostList]
+  }
+  return newPostList;
 };
 
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer,defaultPostList);
 
-  const addPost = () => {};
-  const deletePost = () => {};
+  const addPost = (userId, postTitle, postBody, reaction, tags) => {
+    dispatchPostList({
+      type:'ADD_POST',
+      payload:{
+        id: Date.now(),
+        title: postTitle,
+        body: postBody,
+        reactions: reaction,
+        userId: userId,
+        tags: tags,
+      },
+    })
+  };
+
+  const deletePost = (postId) => {
+    dispatchPostList({
+      type:'DELETE_POST',
+      payload:{
+        postId,
+      },
+    });
+  };
 
   return (
     <PostList.Provider
