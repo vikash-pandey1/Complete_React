@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useCallback, useReducer } from "react";
 
 export const PostList = createContext({
   postList: [],
@@ -25,17 +25,11 @@ const postListReducer = (currPostList, action) => {
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
-  const addPost = (userId, postTitle, postBody, reaction, tags) => {
+
+  const addPost = (post) => {
     dispatchPostList({
       type: "ADD_POST",
-      payload: {
-        id: Date.now(),
-        title: postTitle,
-        body: postBody,
-        reactions: reaction,
-        userId: userId,
-        tags: tags,
-      },
+      payload:post
     });
   };
 
@@ -56,6 +50,9 @@ const PostListProvider = ({ children }) => {
       },
     });
   };
+
+  // const arr = [3,5,3,5];
+  // cosnt sortedArr = useMemo(()=>arr.sort());
 
   return (
     <PostList.Provider
